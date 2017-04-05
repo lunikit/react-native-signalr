@@ -68,12 +68,12 @@ export default (subject) => {
             encodeURIComponent(value == null ? "" : value);
         };
 
-      jQuery.each(a, function () {
-        add(this.name, this.value);
-      });
+      for (param of a) {
+        add(param.name, param.value);
+      }
 
       return s.join("&");
     }
-    
+
   };
 };
