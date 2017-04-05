@@ -68,8 +68,8 @@ export default (subject) => {
             encodeURIComponent(value == null ? "" : value);
         };
 
-      for (param of a) {
-        add(param.name, param.value);
+      for (let p of a) {
+        add(p.name, p.value);
       }
 
       return s.join("&");
