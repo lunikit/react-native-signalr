@@ -12,6 +12,7 @@ export default (subject) => {
 
   return {
     0: subject,
+
     unbind(event, handler) {
       let handlers = events[event] || [];
 
@@ -27,11 +28,13 @@ export default (subject) => {
       events[event] = handlers;
       subject.events = events;
     },
+
     bind(event, handler) {
       const current = events[event] || [];
       events[event] = current.concat(handler)
       subject.events = events;
     },
+
     triggerHandler(event, args) {
       const handlers = events[event] || [];
       handlers.forEach(fn => {
@@ -51,6 +54,26 @@ export default (subject) => {
 
         fn.apply(this, args);
       });
+    },
+
+    param(a) {
+      var prefix,
+        s = [],
+        add = function (key, valueOrFunction) {
+          var value = typeof valueOrFunction === 'function' ?
+            valueOrFunction() :
+            valueOrFunction;
+
+          s[s.length] = encodeURIComponent(key) + "=" +
+            encodeURIComponent(value == null ? "" : value);
+        };
+
+      jQuery.each(a, function () {
+        add(this.name, this.value);
+      });
+
+      return s.join("&");
     }
+    
   };
 };
